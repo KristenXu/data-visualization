@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Page Template</title>
+    <script type="text/javascript" src="../d3.v4.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    function addDomEle() {
+
+        d3.select("body")
+            .append("p")
+            .text("New paragraph!");
+    }
+//    addDomEle();
+    function loadCsv() {
+        d3.csv('./food.csv', function (data) {
+            d3.select("body")
+                .append("h2")
+                .text("load csv");
+            data.forEach(function(obj, index){
+                for(var key in obj){
+                    d3.select("body")
+                        .append("p")
+                        .text(obj[key]);
+                }
+            })
+        })
+    }
+//    loadCsv();
+    function dataBinding() {
+        d3.select("body")
+            .append("h2")
+            .text("data binding");
+        var arraySet = [ 5, 10, 15, 20, 25 ];
+        d3.select("body").selectAll("p")
+            .data(arraySet)
+            .enter()
+            .append("p")
+            .text(function (data) {
+                console.log(data)
+                return data
+            })
+            .style("color", function(d) {
+            if (d > 15) { // 阈值是 15
+                return "red";
+            } else {
+                return "black";
+            }
+        });;
+    }
+    dataBinding();
+</script>
+</body>
+</html>
